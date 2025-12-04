@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Bingo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <button id="mute-btn" class="mute-btn" title="Toggle Sound">🔊</button>
+    <div class="container">
+        <div id="main-menu" class="screen">
+            <h1 class="title animate-pop-in">BINGO <span class="highlight">LIVE</span></h1>
+            <p class="subtitle animate-fade-in">The Ultimate Multiplayer Experience</p>
+            <div class="card animate-slide-up">
+                <div class="button-group">
+                    <button id="pvp-btn" class="btn-primary btn-large">
+                        <span class="icon">👥</span>
+                        <div class="btn-content">
+                            <span class="btn-title">Player vs Player</span>
+                            <span class="btn-desc">Create or join a room</span>
+                        </div>
+                    </button>
+                    <button id="computer-btn" class="btn-secondary btn-large">
+                        <span class="icon">🤖</span>
+                        <div class="btn-content">
+                            <span class="btn-title">Vs Computer</span>
+                            <span class="btn-desc">Practice against AI</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="computer-menu" class="screen hidden">
+            <h2 class="title">Select Mode</h2>
+            <div class="card">
+                <div class="button-group">
+                    <button id="basic-bot-btn" class="btn-primary">Basic Bot (Random)</button>
+                    <button id="ai-bot-btn" class="btn-secondary">AI Bot (Smart)</button>
+                    <button id="back-to-main-btn" class="btn-text">Back</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="login-screen" class="screen hidden">
+            <h2 class="title">PvP Setup</h2>
+            <div class="card">
+                <button id="back-to-main-from-login" class="back-arrow" title="Back">←</button>
+                <input type="text" id="username" placeholder="Enter your name" autocomplete="off">
+                <div class="button-group">
+                    <button id="create-room-btn" class="btn-primary">Create Room</button>
+                    <div class="divider">OR</div>
+                    <div class="join-group">
+                        <input type="text" id="room-code-input" placeholder="Room Code" autocomplete="off"
+                            maxlength="6">
+                        <button id="join-room-btn" class="btn-secondary">Join</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="lobby-screen" class="screen hidden">
+            <h2 class="title">Lobby</h2>
+            <div class="card">
+                <div class="room-code-display">
+                    <span>Room Code:</span>
+                    <span id="room-code-text" class="code">------</span>
+                    <button id="copy-code-btn" class="btn-icon" title="Copy Code">📋</button>
+                </div>
+                <div class="players-list">
+                    <h3>Players</h3>
+                    <ul id="players-ul">
+                        <!-- Players added here -->
+                    </ul>
+                </div>
+                <div id="host-controls" class="hidden">
+                    <button id="start-game-btn" class="btn-primary">Start Game</button>
+                </div>
+                <div id="waiting-msg" class="status-text hidden">Waiting for host to start...</div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div class="header">
+                <div class="player-info">
+                    <div class="name-container">
+                        <span class="label">You</span>
+                        <span id="player-name" class="name">Player</span>
+                        <div id="player-health" class="health-bar">
+                            <div class="heart">❤️</div>
+                            <div class="heart">❤️</div>
+                            <div class="heart">❤️</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="player-info opponent">
+                    <div class="name-container">
+                        <span class="label">Opponent</span>
+                        <span id="opponent-name" class="name">Waiting...</span>
+                        <div id="opponent-health" class="health-bar">
+                            <div class="heart">❤️</div>
+                            <div class="heart">❤️</div>
+                            <div class="heart">❤️</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="status-message" class="status">Waiting for opponent...</div>
+
+            <div id="timer-container" class="timer-container">
+                <div id="timer-bar" class="timer-bar"></div>
+                <span id="timer-text">30s</span>
+            </div>
+
+            <div class="boards-container">
+                <div class="board-wrapper">
+                    <div class="board-label">You</div>
+                    <div id="grid" class="grid">
+                        <!-- Grid items generated by JS -->
+                    </div>
+                </div>
+                <div class="board-wrapper opponent-board hidden" id="bot-board-wrapper">
+                    <div class="board-label">Bot</div>
+                    <div id="bot-grid" class="grid bot-grid">
+                        <!-- Bot Grid items generated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="bingo-counter">
+                <span>BINGO Lines:</span>
+                <span id="lines-count">0</span>/5
+            </div>
+        </div>
+
+        <div id="result-screen" class="screen hidden">
+            <div class="result-content">
+                <h2 id="result-title">You Won!</h2>
+                <button id="restart-btn" class="btn-primary">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
